@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ResetPasswordConfirmationScreen;
+export default ResetPasswordConfirmationScreen
