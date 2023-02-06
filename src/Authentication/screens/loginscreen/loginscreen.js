@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, ScrollView, StatusBar, } from "react-native";
 import InputBox from "../../../components/inputbox";
 import { useFonts } from 'expo-font'
 import Buttons from "../../../components/buttons";
@@ -11,8 +11,11 @@ import loginValidationSchema from "../../../utils/loginvalidationschema";
 import axios from "axios";
 import { updateNotification } from "../../../utils/updatenotification";
 import AppNotification from "../../../components/AppNotification/appnotification";
+import { MyContext } from "../../../../Global/context";
 
 const LoginScreen = () => {
+    const {setusername, setemail} = useContext(MyContext);
+
     const navigation = useNavigation();
     const [message, setmessage] = useState({
         text: '',
@@ -42,10 +45,12 @@ const LoginScreen = () => {
         try {
             const {data} = await axios.post("http://192.168.4.79:8000/api/user/login", {...values})
             console.log(data)
-            navigation.navigate('AppNavigation')
+            setusername(data.user.name)
+            setemail(data.user.email)
+            navigation.navigate('BottomNavigation')
         } catch (error) {
             updateNotification(setmessage, error.response.data.error);
-            console.log(error?.response?.data);
+            console.log(error);
         }
     };
 
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eafdfc',
     },
     login:{
-        marginTop: 47,
+        marginTop: 50,
         marginBottom: 20,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 56,

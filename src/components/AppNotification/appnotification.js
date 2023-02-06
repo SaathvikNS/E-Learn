@@ -6,7 +6,7 @@ const AppNotification = ({type, text}) => {
 
     useEffect(() => {
         Animated.timing(height,{
-            toValue: 40,
+            toValue: 35,
             duration: 500,
             useNativeDriver: false,
         }).start()

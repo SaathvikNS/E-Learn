@@ -1,38 +1,85 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../HomeScreen/homescreen";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFonts } from "expo-font";
+import MyLearning from "../Mylearning/mylearning";
 import WishlistScreen from "../WishlistSceen/wishlistscreen";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AccountsScreen from "../AccountsScreen/accountsscreen";
-import { TouchableNativeFeedback } from "react-native";
+import ProfileNavigation from "../ProfileScreen";
+import HomeNavigation from "../HomeScreen";
 
-const Tab = createBottomTabNavigator();
+const BottomNavigation = ( ) => {
+  const [selectedTab, setSelectedTab] = useState(0);
+  
+  let [fontsLoaded] = useFonts({
+    "Inder-Regular": require("../../../assets/fonts/Inder-Regular.ttf"),
+  });
 
-const AppNavigation = () => {
-    return(
-            <Tab.Navigator screenOptions={({route}) => ({
-                tabBarIcon: ({focused, color, size}) => {
-                    let iconName;
-                    let rn = route.name;
-                    if(rn === "Home") {
-                        iconName = focused ? 'home' : 'home-outline';
-                    }else if(rn === "Wishlist") {
-                        iconName = focused ? 'heart' : 'heart-outline';
-                    }else if(rn === 'Accounts') {
-                        iconName = focused ?  'people' : 'people-outline';
-                    }
+  if (!fontsLoaded) {
+    return null;
+  }
 
-                    return <Ionicons name={iconName} size={size} color={color}/>
-                },
-                headerShown: false,
-                tabBarActiveTintColor: '#82AAE3',
-                tabBarLabelStyle:{paddingBottom: 10, fontSize: 10},
-                tabBarStyle:{padding: 10, height: 60},
-            })}>
-                <Tab.Screen name="Home" component={HomeScreen}/>
-                <Tab.Screen name="Wishlist" component={WishlistScreen}/>
-                <Tab.Screen name="Accounts" component={AccountsScreen}/>
-            </Tab.Navigator>
-    )
-}
+  return (
+    <View style={{ flex: 1 }}>
+      { selectedTab == 0 ? ( <HomeNavigation/> )
+      : selectedTab == 1 ? ( <MyLearning /> )
+      : selectedTab == 2 ? ( <WishlistScreen /> )
+      : ( <ProfileNavigation/> ) }
 
-export default AppNavigation;
+      <View style={styles.container}>
+        {/* Home */}
+        <TouchableOpacity onPress={() => { setSelectedTab(0); }}>
+          <View style={styles.touchablewrapper}>
+            <Ionicons name={selectedTab == 0 ? "home" : "home-outline"} size={25} color={"#82aae3"} />
+            <Text style={styles.text}>Home</Text>
+          </View>
+        </TouchableOpacity>
+        {/* MyLearning */}
+        <TouchableOpacity onPress={() => { setSelectedTab(1); }}>
+          <View style={styles.touchablewrapper}>
+            <Ionicons name={selectedTab == 1 ? "play-circle" : "play-circle-outline"} size={25} color={"#82aae3"} />
+            <Text style={styles.text}>My Learning</Text>
+          </View>
+        </TouchableOpacity>
+        {/* Wishlist */}
+        <TouchableOpacity onPress={() => { setSelectedTab(2); }}>
+          <View style={styles.touchablewrapper}>
+            <Ionicons name={selectedTab == 2 ? "heart" : "heart-outline"} size={25} color={"#82aae3"} />
+            <Text style={styles.text}>Wishlist</Text>
+          </View>
+        </TouchableOpacity>
+        {/* Profile */}
+        <TouchableOpacity onPress={() => { setSelectedTab(3); }}>
+          <View style={styles.touchablewrapper}>
+            <Ionicons name={selectedTab == 3 ? "person-circle" : "person-circle-outline"} size={25} color={"#82aae3"} />
+            <Text style={styles.text}>Profile</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    bottom: 0,
+    height: 60,
+    width: "100%",
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  touchablewrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  text: {
+    color: "#82aae3",
+    fontFamily: "Inder-Regular",
+    fontSize: 10,
+  },
+});
+
+export default BottomNavigation;

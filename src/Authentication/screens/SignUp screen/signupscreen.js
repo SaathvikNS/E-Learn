@@ -47,7 +47,7 @@ const SignUpScreen = () => {
             navigation.dispatch(StackActions.replace('ConfirmEmailScreen', {profile: data.user}));
         } catch (error) {
             updateNotification(setmessage, error.response.data.error)
-            console.log(error?.response?.data)
+            console.log(error)
         }
     };
 
@@ -94,12 +94,10 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         alignItems: 'center',
-        marginTop: 15,
-        paddingTop: 15,
         backgroundColor: '#eafdfc',
     },
     signup:{
-        marginTop: 47,
+        marginTop: 50,
         marginBottom: 20,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 56,

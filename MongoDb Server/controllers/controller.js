@@ -136,3 +136,13 @@ exports.resetPassword = async (req, res) => {
 
     res.status(200).send({success: true, message: "Password Reset Successfull"})
 }
+
+exports.getuser = async(req, res) => {
+    const {userid} = req.body;
+    console.log(userid)
+
+    const user = await User.findById(userid)
+    if(!user) return res.status(400).send({success: false, error: 'User not found.'})
+
+    res.status(200).send({username: user.name, email: user.email})
+}
