@@ -21,8 +21,7 @@ const BottomNavigation = ( ) => {
   return (
     <View style={{ flex: 1 }}>
       { selectedTab == 0 ? ( <HomeNavigation/> )
-      : selectedTab == 1 ? ( <MyLearning /> )
-      : selectedTab == 2 ? ( <WishlistScreen /> )
+      : selectedTab == 1 ? ( <WishlistScreen /> )
       : ( <ProfileNavigation/> ) }
 
       <View style={styles.container}>
@@ -33,22 +32,15 @@ const BottomNavigation = ( ) => {
             <Text style={styles.text}>Home</Text>
           </View>
         </TouchableOpacity>
-        {/* MyLearning */}
-        <TouchableOpacity onPress={() => { setSelectedTab(1); }}>
-          <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 1 ? "play-circle" : "play-circle-outline"} size={25} color={"#82aae3"} />
-            <Text style={styles.text}>My Learning</Text>
-          </View>
-        </TouchableOpacity>
         {/* Wishlist */}
-        <TouchableOpacity onPress={() => { setSelectedTab(2); }}>
+        <TouchableOpacity onPress={() => { setSelectedTab(1); }}>
           <View style={styles.touchablewrapper}>
             <Ionicons name={selectedTab == 2 ? "heart" : "heart-outline"} size={25} color={"#82aae3"} />
             <Text style={styles.text}>Wishlist</Text>
           </View>
         </TouchableOpacity>
         {/* Profile */}
-        <TouchableOpacity onPress={() => { setSelectedTab(3); }}>
+        <TouchableOpacity onPress={() => { setSelectedTab(2); }}>
           <View style={styles.touchablewrapper}>
             <Ionicons name={selectedTab == 3 ? "person-circle" : "person-circle-outline"} size={25} color={"#82aae3"} />
             <Text style={styles.text}>Profile</Text>
@@ -65,7 +57,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: 60,
     width: "100%",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     flexDirection: "row",
     backgroundColor: "#fff",
     alignItems: "center",

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, Image, View } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import {  useFonts } from 'expo-font';
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import { MyContext } from "../../../../Global/context";
 import HorizontalScroll from "../../../components/HorizontalScroll/horizontalscroll";
 import VerticalScroll from "../../../components/VerticalScroll/verticalscroll";
 import Quotes from "../../../components/utils/qoutes";
+import { featuredVideos } from "../../../components/video links/vidlinks";
 
 const HomeScreen = () => {
     const {username} = useContext(MyContext);
@@ -32,10 +33,10 @@ const HomeScreen = () => {
                 </View>
             </View>
             <ScrollView style={{width: "95%",}} contentContainerStyle={{alignItems: "center",}} showsVerticalScrollIndicator={false}>
-                <View style={styles.search}>
+                {/* <View style={styles.search}>
                     <Ionicon name="search" size={20} color={"#bbbbbb"} />
                     <Text style={styles.searchtext} >Search</Text>
-                </View>
+                </View> */}
                 <View style={styles.quoteContainer}>
                     <Quotes />
                 </View>
@@ -44,9 +45,12 @@ const HomeScreen = () => {
                     <Text style={styles.featuredShowAll}>Show all</Text>
                 </View>
                 <View style={styles.featured}>
-                    <FlatList data={[ 1, 1, 1, 1, 1, 1]} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => {
+                    <FlatList data={featuredVideos} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => {
                         return(
-                            <HorizontalScroll />
+                            <View>
+                                <Image source={{uri: item.banner}} style={{height: "50%", width: "95%",}} />
+                                <HorizontalScroll title={item.title} tutor={item.tutor} likes={item.likes} views={item.views}/>
+                            </View>
                         )
                     }}/>
                 </View>
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     featured:{
-        height: 200,
+        height: 250,
         width: "95%",
         marginTop: 20
     },
