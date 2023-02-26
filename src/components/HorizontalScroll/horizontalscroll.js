@@ -1,34 +1,37 @@
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, Text, View, } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
+import { MyContext } from "../../../Global/context";
 
 const HorizontalScroll = ({title, tutor, likes, views}) => {
+    const {darkscheme} = useContext(MyContext);
+
     return(
-        <TouchableOpacity style={styles.container}>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#1f222a" : "#fbfbfb",}]}>
             <View style={styles.courseInfo}>
-                <Text style={styles.courseInfoTitle}>{title}</Text>
-                <Text style={styles.courseInfoTutor}>{tutor}</Text>
+                <Text style={[styles.courseInfoTitle, {color: darkscheme ? "#ffffffbb" : "#212121dd",}]}>{title}</Text>
+                <Text style={[styles.courseInfoTutor, {color: darkscheme ? "#ffffff88" : "#212121dd",}]}>{tutor}</Text>
                 <View style={styles.lastline}>
                     <Ionicon name="star-half-sharp" size={18} color={"#fc9b11"}/>
-                    <Text style={styles.likes}>{likes}</Text>
-                    <Text style={styles.divider}>|</Text>
+                    <Text style={[styles.likes, {color: darkscheme ? "#878787" : "#656565cc",}]}>{likes}</Text>
+                    <Text style={[styles.divider, {color: darkscheme ? "#878787" : "#656565cc",}]}>|</Text>
                     <Ionicon name="eye-outline" size={18} color={"#fc9b11"} style={styles.eye}/>
-                    <Text style={styles.watches}>{views}</Text>
+                    <Text style={[styles.watches, {color: darkscheme ? "#878787" : "#656565cc",}]}>{views}</Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        height: "100%",
+        height: "50%",
         width: 250,
-        backgroundColor: '#fff',
         alignItems: "center",
         paddingTop: 5,
         marginHorizontal: 5,
-        borderRadius: 10,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
     },
     courseInfo:{
         width: "100%",

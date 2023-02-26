@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFonts } from "expo-font";
-import MyLearning from "../Mylearning/mylearning";
-import WishlistScreen from "../WishlistSceen/wishlistscreen";
 import ProfileNavigation from "../ProfileScreen";
 import HomeNavigation from "../HomeScreen";
+import WishlistNavigator from "../WishlistSceen";
+import { MyContext } from "../../../Global/context";
 
 const BottomNavigation = ( ) => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const {darkscheme} = useContext(MyContext);
+
+  const windowWidth = Dimensions.get("window").width;
   
   let [fontsLoaded] = useFonts({
     "Inder-Regular": require("../../../assets/fonts/Inder-Regular.ttf"),
@@ -21,29 +24,29 @@ const BottomNavigation = ( ) => {
   return (
     <View style={{ flex: 1 }}>
       { selectedTab == 0 ? ( <HomeNavigation/> )
-      : selectedTab == 1 ? ( <WishlistScreen /> )
+      : selectedTab == 1 ? ( <WishlistNavigator /> )
       : ( <ProfileNavigation/> ) }
 
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
         {/* Home */}
         <TouchableOpacity onPress={() => { setSelectedTab(0); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 0 ? "home" : "home-outline"} size={25} color={"#82aae3"} />
-            <Text style={styles.text}>Home</Text>
+            <Ionicons name={selectedTab == 0 ? "home" : "home-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
+            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Home</Text>
           </View>
         </TouchableOpacity>
         {/* Wishlist */}
         <TouchableOpacity onPress={() => { setSelectedTab(1); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 2 ? "heart" : "heart-outline"} size={25} color={"#82aae3"} />
-            <Text style={styles.text}>Wishlist</Text>
+            <Ionicons name={selectedTab == 1 ? "heart" : "heart-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
+            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Wishlist</Text>
           </View>
         </TouchableOpacity>
         {/* Profile */}
         <TouchableOpacity onPress={() => { setSelectedTab(2); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 3 ? "person-circle" : "person-circle-outline"} size={25} color={"#82aae3"} />
-            <Text style={styles.text}>Profile</Text>
+            <Ionicons name={selectedTab == 2 ? "person-circle" : "person-circle-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
+            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Profile</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -70,7 +73,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#82aae3",
     fontFamily: "Inder-Regular",
-    fontSize: 10,
   },
 });
 

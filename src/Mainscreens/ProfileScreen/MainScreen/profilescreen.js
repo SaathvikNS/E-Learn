@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MyContext } from "../../../../Global/context";
 
 const ProfileScreen = () => {
-    const {username, email} = useContext(MyContext);
+    const {username, email, darkscheme, setdarkscheme} = useContext(MyContext);
     const navigation = useNavigation();
 
     let[fontsLoaded] = useFonts({
@@ -36,7 +36,7 @@ const ProfileScreen = () => {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
             <View style={styles.titlecontainer}>
                 <Text style={styles.title}>Profile</Text>
             </View>
@@ -45,7 +45,7 @@ const ProfileScreen = () => {
                     <Ionicon name="person" size={75} color={"#eafdfc"}/>
                 </View>
                 <View style={styles.userinfo}>
-                    <Text style={styles.username}>{username}</Text>
+                    <Text style={[styles.username, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>{username}</Text>
                     <Text style={styles.email}>{email}</Text>
                 </View>
             </View>
@@ -53,7 +53,13 @@ const ProfileScreen = () => {
                 <PlainButtons text={"About"} icon={"information-circle"} onPress={aboutpressed} />
                 <PlainButtons text={"Privacy Policy"} icon={"document-attach"} onPress={privacypolicypressed}/>
                 <PlainButtons text={"Terms and Conditions"} icon={"shield-checkmark"} onPress={termsandconditionspressed}/>
-                <PlainButtons text={"Dark Mode"} icon={"contrast"} />
+                {
+                    darkscheme ? (
+                        <PlainButtons text={"Light Mode"} icon={"contrast"} onPress={() => { setdarkscheme(false); }} />
+                    ) : (
+                        <PlainButtons text={"Dark Mode"} icon={"contrast"} onPress={() => { setdarkscheme(true); }} />
+                    )
+                }
                 <PlainButtons text={"Sign out"} icon={"log-out"} onPress={logoutpressed}/>
             </View>
         </View>
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: "center",
-        marginHorizontal: 15,
+        paddingHorizontal: 15,
     },
     titlecontainer:{
         paddingHorizontal: 10,
@@ -91,7 +97,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#82aae388',
     },
     username:{
-        color: "#5e5e5e",
         fontSize: 25,
         fontFamily: "Inder-Regular",
     },

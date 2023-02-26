@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableNativeFeedback, View, Text, } from "react-native";
 
-const Buttons = ({value, onPress}) => {
+const Buttons = ({value, onPress = null}) => {
     return(
         <TouchableNativeFeedback onPress={onPress}>
             <View style={styles.butwrapper}>

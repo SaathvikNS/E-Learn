@@ -33,7 +33,7 @@ const ForgotPasswordScreen = () => {
 
     const submitpressed = async (email) => {
         try {
-            const {data} = await axios.post("http://192.168.4.79:8000/api/user/forgot-password", email)
+            const {data} = await axios.post("http://192.168.216.79:8000/api/user/forgot-password", email)
             updateNotification(setmessage, data.message, data.success)
             console.log(data)
         } catch (error) {

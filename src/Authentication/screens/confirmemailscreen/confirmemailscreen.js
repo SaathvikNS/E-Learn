@@ -36,7 +36,7 @@ const ConfirmEmailScreen = ({route}) => {
     const confirmpressed = async (getotp) => {
         try {
             const otp = getotp.otp.toString();
-            const {data} = await axios.post("http://192.168.4.79:8000/api/user/verify-email", {userid, otp})
+            const {data} = await axios.post("http://192.168.135.79:8000/api/user/verify-email", {userid, otp})
             updateNotification(setmessage, data.justification, data.success)            
             console.log(data);
             navigation.navigate("LogIn");

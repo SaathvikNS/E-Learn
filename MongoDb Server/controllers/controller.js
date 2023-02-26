@@ -4,7 +4,7 @@ const ResetToken = require('../model/resetToken');
 const jwt = require('jsonwebtoken');
 const { generateOtp, mailTransport, createRandomBytes } = require('../utils/utils');
 const { otpMailTemplate, welcomeMail, forgotPasswordMail, resetSuccessMail, } = require('../utils/emailtemplates');
-const { isValidObjectId } = require('mongoose');
+const { isValidObjectId, } = require('mongoose');
 require('dotenv').config();
 
 exports.createUser = async (req, res) =>  {
@@ -137,12 +137,29 @@ exports.resetPassword = async (req, res) => {
     res.status(200).send({success: true, message: "Password Reset Successfull"})
 }
 
-exports.getuser = async(req, res) => {
-    const {userid} = req.body;
-    console.log(userid)
+exports.wishlist = async (req, res) => {
+    const {userid, wishlist} = req.body
+    if(!userid || !wishlist) return res.status(400).send({success: false, error: "Invalid Request!"})
+
+    if(!isValidObjectId(userid)) return res.status(400).send({success: false, error: 'Invalid User Id!'})
 
     const user = await User.findById(userid)
     if(!user) return res.status(400).send({success: false, error: 'User not found.'})
 
-    res.status(200).send({username: user.name, email: user.email})
+    user.wishlist = wishlist;
+    await user.save()
+
+    res.status(200).send({success: true, wishlist: {value: user.wishlist, message: "Wishlist Updated..."}})
+}
+
+exports.getwishlist = async (req, res) => {
+    const {userid} = req.body;
+    if(!userid) return res.status(400).send({success: false, error: "Invalid Request!"})
+
+    if(!isValidObjectId(userid)) return res.status(400).send({success: false, error: 'Invalid User Id!'})
+
+    const user = await User.findById(userid)
+    if(!user) return res.status(400).send({success: false, error: 'User not found.'})
+
+    res.status(200).send({success: true, wishlist: user.wishlist})
 }

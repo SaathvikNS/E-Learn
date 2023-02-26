@@ -14,7 +14,7 @@ import AppNotification from "../../../components/AppNotification/appnotification
 import { MyContext } from "../../../../Global/context";
 
 const LoginScreen = () => {
-    const {setusername, setemail} = useContext(MyContext);
+    const {setuserid, setusername, setemail} = useContext(MyContext);
 
     const navigation = useNavigation();
     const [message, setmessage] = useState({
@@ -43,8 +43,9 @@ const LoginScreen = () => {
 
     const loginpressed = async (values) =>{
         try {
-            const {data} = await axios.post("http://192.168.4.79:8000/api/user/login", {...values})
+            const {data} = await axios.post("http://192.168.135.79:8000/api/user/login", {...values})
             console.log(data)
+            setuserid(data.user.id)
             setusername(data.user.name)
             setemail(data.user.email)
             navigation.navigate('BottomNavigation')

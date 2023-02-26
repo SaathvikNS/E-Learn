@@ -42,7 +42,7 @@ const SignUpScreen = () => {
 
     const signuppressed = async (values) => {
         try {
-            const {data} =  await axios.post("http://192.168.4.79:8000/api/user/create", {...values})
+            const {data} =  await axios.post("http://192.168.135.79:8000/api/user/create", {...values})
             console.log(data);
             navigation.dispatch(StackActions.replace('ConfirmEmailScreen', {profile: data.user}));
         } catch (error) {

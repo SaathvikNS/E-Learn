@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, Image, View } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { FlatList, ScrollView, StyleSheet, Text, Image, View, TouchableOpacity, Dimensions } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import {  useFonts } from 'expo-font';
 import { useNavigation } from "@react-navigation/native";
@@ -7,10 +7,23 @@ import { MyContext } from "../../../../Global/context";
 import HorizontalScroll from "../../../components/HorizontalScroll/horizontalscroll";
 import VerticalScroll from "../../../components/VerticalScroll/verticalscroll";
 import Quotes from "../../../components/utils/qoutes";
-import { featuredVideos } from "../../../components/video links/vidlinks";
+import { allFeaturedVideos, allVideos } from "../../../components/video links/vidlinks";
+import axios from "axios";
 
 const HomeScreen = () => {
-    const {username} = useContext(MyContext);
+    const {userid, username, setid, setvideo, settitle, settutor, setlikes, setduration, setviews, wishlist, setwishlist, darkscheme} = useContext(MyContext);
+    const windowWidth = Dimensions.get("window").width;
+
+    const navigation = useNavigation();
+    
+    const getwishlist = async () => {
+        const {data} = await axios.post("http://192.168.135.79:8000/api/user/get-wishlist", {userid})
+        setwishlist(data.wishlist)
+        console.log("fetched data", wishlist);
+    }
+    useEffect(() => {
+        getwishlist();
+    }, []);
 
     let[fontsLoaded] = useFonts({
         'inder': require('../../../../assets/fonts/Inder-Regular.ttf'),
@@ -23,13 +36,20 @@ const HomeScreen = () => {
         return null;
     }
 
+    const allFeaturedPressed = () => {
+        navigation.navigate('AllFeaturedScreen')
+    }
+    const allCoursePressed = () => {
+        navigation.navigate('AllCourseScreen')
+    }
+
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
             <View style={styles.header}>
                 <Ionicon name="person-circle" size={50} color={"#82aae3"}/>
                 <View style={styles.headertext}>
-                    <Text style={styles.greet}>Hello!! 👋</Text>
-                    <Text style={styles.username}>{username}</Text>
+                    <Text style={[styles.greet, {color: darkscheme ? "#ffffff99" : "#00000088"}]}>Hello!! 👋</Text>
+                    <Text style={[styles.username, {color: darkscheme ? "#ffffffcc" : "#000000bb"}]}>{username}</Text>
                 </View>
             </View>
             <ScrollView style={{width: "95%",}} contentContainerStyle={{alignItems: "center",}} showsVerticalScrollIndicator={false}>
@@ -41,30 +61,52 @@ const HomeScreen = () => {
                     <Quotes />
                 </View>
                 <View style={styles.featuredTextContainer}>
-                    <Text style={styles.featuredText}>Featured</Text>
-                    <Text style={styles.featuredShowAll}>Show all</Text>
+                    <Text style={[styles.featuredText, {color: darkscheme ? "#ffffffcc" : "#000000bb"}]}>Featured</Text>
+                    <Text style={styles.featuredShowAll} onPress={allFeaturedPressed}>Show all</Text>
                 </View>
                 <View style={styles.featured}>
-                    <FlatList data={featuredVideos} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => {
+                    <FlatList data={allFeaturedVideos.slice(0,4)} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => {
                         return(
-                            <View>
-                                <Image source={{uri: item.banner}} style={{height: "50%", width: "95%",}} />
+                            <TouchableOpacity style={{alignItems: "center",}} onPress={() => {
+                                setid(item.id);
+                                setvideo(item.video);
+                                settitle(item.title);
+                                settutor(item.tutor);
+                                setlikes(item.likes);
+                                setviews(item.views);
+                                setduration(item.duration);
+                                navigation.navigate('VideoScreen');
+                            }}>
+                                <Image source={{uri: item.banner}} style={{height: "50%", width: 250,}} />
                                 <HorizontalScroll title={item.title} tutor={item.tutor} likes={item.likes} views={item.views}/>
-                            </View>
+                            </TouchableOpacity>
                         )
                     }}/>
                 </View>
                 <View style={styles.allCourseTextContainer}>
-                    <Text style={styles.allCourseText}>All Courses</Text>
-                    <Text style={styles.allCourseShowAll}>Show all</Text>
+                    <Text style={[styles.allCourseText, {color: darkscheme ? "#ffffffcc" : "#000000bb"}]}>All Courses</Text>
+                    <Text style={styles.allCourseShowAll} onPress={allCoursePressed}>Show all</Text>
                 </View>
                 <View style={styles.allCourse}>
-                    <VerticalScroll />
-                    <VerticalScroll />
-                    <VerticalScroll />
-                    <VerticalScroll />
-                    <VerticalScroll />
-                    <VerticalScroll />
+                    {
+                        allVideos.filter((item, index) => index < 7).map((items) => {
+                            return(
+                                <TouchableOpacity key={items.id} style={{flexDirection: "row", marginVertical: 5, height: 125, justifyContent: "center", alignItems: "center",}} onPress={() => {
+                                    setid(items.id);
+                                    setvideo(items.video);
+                                    settitle(items.title);
+                                    settutor(items.tutor);
+                                    setlikes(items.likes);
+                                    setviews(items.views);
+                                    setduration(items.duration);
+                                    navigation.navigate('VideoScreen');
+                                }}>
+                                    <Image source={{uri: items.banner}}  style={{height: "100%", width: windowWidth/3,}}/>
+                                    <VerticalScroll title={items.title} tutor={items.tutor} likes={items.likes} views={items.views} />
+                                </TouchableOpacity>
+                            )
+                        })
+                    }
                 </View>
             </ScrollView>
         </View>
@@ -75,7 +117,6 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
-        backgroundColor: `#fbfbfb`,
         paddingBottom: 60,
     },
     header:{
@@ -96,12 +137,10 @@ const styles = StyleSheet.create({
     greet:{
         fontFamily: "itim",
         fontSize: 15,
-        color: "#00000088",
     },
     username:{
         fontFamily: "fredoka",
         fontSize: 20,
-        color: "#000000bb"
     },
     search:{
         backgroundColor: '#f5f5f5',
@@ -135,7 +174,6 @@ const styles = StyleSheet.create({
     featuredText:{
         fontFamily: "breeserif",
         fontSize: 20,
-        color: "#000000bb",
     },
     featuredShowAll:{
         fontSize: 15,
@@ -159,7 +197,6 @@ const styles = StyleSheet.create({
     allCourseText:{
         fontFamily: "breeserif",
         fontSize: 25,
-        color: "#000000bb",
     },
     allCourseShowAll:{
         fontFamily: 'inder',

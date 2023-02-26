@@ -1,32 +1,36 @@
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from "react-native";
+import React, { useContext } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import Ionicon from "react-native-vector-icons/Ionicons";
+import { MyContext } from "../../../Global/context";
 
 const windowWidth = Dimensions.get("window").width;
-const VerticalScroll = () => {
+const VerticalScroll = ({title, tutor, likes, views}) => {
+    const {darkscheme} = useContext(MyContext);
+
     return(
-        <TouchableOpacity style={styles.container}>
-            <Image source={require("../../../assets/logos/download.png")} style={{height: 100, width: windowWidth/3}}/>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#1f222a" : "#fbfbfb",}]}>
             <View style={styles.courseInfo}>
-                <Text style={styles.courseInfoTitle}>Python Course for Beginners</Text>
-                <Text style={styles.courseInfoTutor}>Saathvik N Sharma</Text>
+                <Text style={[styles.courseInfoTitle, {color: darkscheme ? "#ffffffbb" : "#212121dd",}]}>{title}</Text>
+                <Text style={[styles.courseInfoTutor, {color: darkscheme ? "#ffffff88" : "#212121dd",}]}>{tutor}</Text>
                 <View style={styles.lastline}>
                     <Ionicon name="star-half-sharp" size={18} color={"#fc9b11"}/>
-                    <Text style={styles.likes}>4.2</Text>
-                    <Text style={styles.divider}>|</Text>
+                    <Text style={[styles.likes, {color: darkscheme ? "#878787" : "#656565cc",}]}>{likes}</Text>
+                    <Text style={[styles.divider, {color: darkscheme ? "#878787" : "#656565cc",}]}>|</Text>
                     <Ionicon name="eye-outline" size={18} color={"#fc9b11"} style={styles.eye}/>
-                    <Text style={styles.watches}>984</Text>
+                    <Text style={[styles.watches, {color: darkscheme ? "#878787" : "#656565cc",}]}>{views}</Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: "#fff",
-        marginVertical: 5,
+        height: "100%",
+        paddingVertical: 5,
         flexDirection: "row",
+        borderTopEndRadius: 20,
+        borderBottomEndRadius: 20,
     },
     courseInfo:{
         width: windowWidth/1.8,
@@ -37,13 +41,11 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontFamily: "breeserif",
         fontSize: 18,
-        color: "#212121dd",
         paddingTop: 5,
     },
     courseInfoTutor:{
         fontFamily: "breeserif",
         fontSize: 15,
-        color: "#212121bb",
         paddingVertical: 5,
     },
     
@@ -52,12 +54,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     likes:{
-        color: "#656565cc",
         fontSize: 15,
         paddingHorizontal: 5,
     },
     divider:{
-        color: "#656565cc",
         fontSize: 15,
         paddingHorizontal: 5,
     },
@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
     },
     watches:{
-        color: "#656565cc",
         fontSize: 15,
         paddingHorizontal: 5,
     },
