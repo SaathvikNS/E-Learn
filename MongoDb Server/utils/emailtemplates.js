@@ -195,7 +195,7 @@ exports.welcomeMail = (user) => {
     </html>`
 }
 
-exports.forgotPasswordMail = (url) => {
+exports.forgotPasswordMail = (otp) => {
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -204,9 +204,7 @@ exports.forgotPasswordMail = (url) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-            *{
-                box-sizing: border-box;
-            }
+            * { box-sizing: border-box; }
             body {
                 background-color: #fafafa;
                 display: flex;
@@ -214,9 +212,11 @@ exports.forgotPasswordMail = (url) => {
                 align-items: center;
             }
             .wrapper {
-                margin: none;
-                width: 100%;
+                width: 40vw;
                 min-width: 350px;
+                border-radius: 40px;
+                overflow: hidden;
+                box-shadow: 0px 7px 22px 0px rgba(0, 0, 0, .1);
             }
             .header_container {
                 background-color: #0fd59f;
@@ -234,20 +234,20 @@ exports.forgotPasswordMail = (url) => {
             }
             .content_container {
                 width: 100%;
-                height: 100%;
+                height: 300px;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: space-around;
                 align-items: center;
                 flex-wrap: wrap;
                 background-color: #fff;
                 padding: 15px;
             }
             .content {
-                font-family: 'Open Sans';
                 font-size: 15px;
                 text-align: center;
                 color: #343434;
+                margin-top: 0;
             }
             .otp_container {
                 display: flex;
@@ -255,31 +255,34 @@ exports.forgotPasswordMail = (url) => {
                 padding: 20px;
                 justify-content: center;
             }
-            .button{
-                height: 35px;
-                width: 150px;
-                border: none;
-                overflow: hidden;
-                background-color: #0fd59f;
-                border-radius: 4px;
-                color: white;
-                font-size: 20px;
-                font-family: 'Open Sans';
-                font-weight: 700;
-                text-decoration: none;
-                text-align: center;
-                line-height: 35px;
-            }
-            .button:hover{
-                background-color: #1fe5af;
-                cursor: pointer;
-            }
             .otp{
                 text-align: center;
                 font-size: 50px;
                 font-family: 'Open Sans';
                 font-weight: bolder;
                 letter-spacing: 10px;
+            }
+            .footer {
+                font-size: 15px;
+                text-align: center;
+                color: #343434;
+                margin-top: 0;
+            }
+    
+            .text-title {
+            font-family: 'Open Sans';
+            }
+            .text-center {
+            text-align: center;
+            }
+            .text-italic {
+            font-style: italic;
+            }
+            .opacity-30 {
+            opacity: 0.3;
+            }
+            .mb-0 {
+            margin-bottom: 0;
             }
         </style>
     </head>
@@ -291,11 +294,12 @@ exports.forgotPasswordMail = (url) => {
             </div>
             <div class="content_container">
                 <p class="content text-title">
-                    Click below to reset your password
+                    Your One-Time-Password to reset the password is
                 </p>
                 <div class="otp_container">
-                    <a href="${url}" class="button">Click here</a>
+                    <span class="otp">${otp}</span>
                 </div>
+                <p class="footer text-italic opacity-30 text-title mb-0">Verification code is valid only for 1 hour</p>
             </div>
         </div>
     </body>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, TouchableNativeFeedback, View, Text, } from "react-native";
+import { MyContext } from "../../../Global/context";
 
 const Buttons = ({value, onPress = null}) => {
+    const {darkscheme} = useContext(MyContext);
+
     return(
         <TouchableNativeFeedback onPress={onPress}>
-            <View style={styles.butwrapper}>
+            <View style={[styles.butwrapper, {backgroundColor: darkscheme ? "#4360c9" : "#82aae3"}]}>
                 <Text style={styles.value}>{value}</Text>
             </View>
         </TouchableNativeFeedback>
@@ -15,7 +18,6 @@ const styles = StyleSheet.create({
     butwrapper:{
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#82AAE3',
         height: 40,
         width: '80%',
         borderRadius: 50,

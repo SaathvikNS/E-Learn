@@ -17,7 +17,7 @@ const ContextProvider = ({children}) => {
     const [duration, setduration] = React.useState();
 
     const [wishlist, setwishlist] = React.useState([]);
-    const [darkscheme, setdarkscheme] = React.useState(true);
+    const [darkscheme, setdarkscheme] = React.useState(false);
 
     return(
         <MyContext.Provider value={{userid, setuserid, username, setusername, email, setemail, id, setid, video, setvideo, title, settitle, tutor, settutor, likes, setlikes, views, setviews, about, setabout, wishlist, setwishlist, duration, setduration, darkscheme, setdarkscheme}}>

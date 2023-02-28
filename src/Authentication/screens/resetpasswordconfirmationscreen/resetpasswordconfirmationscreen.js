@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from 'expo-font';
 import { useForm } from "react-hook-form";
@@ -7,8 +7,19 @@ import Buttons from "../../../components/buttons";
 import { useNavigation } from "@react-navigation/native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import resetPasswordConfirmationValidationSchema from "../../../utils/resetpasswordconfirmationvalidationschema";
+import { MyContext } from "../../../../Global/context";
+import axios from "axios";
+import { updateNotification } from "../../../utils/updatenotification";
+import AppNotification from "../../../components/AppNotification/appnotification";
 
 const ResetPasswordConfirmationScreen = () => {
+    const {userid, darkscheme} = useContext(MyContext);
+
+    const [message, setmessage] = useState({
+        test: '',
+        type: '',
+    })
+
     const {control, handleSubmit, error} = useForm({
         resolver: yupResolver(resetPasswordConfirmationValidationSchema)
     });
@@ -23,12 +34,17 @@ const ResetPasswordConfirmationScreen = () => {
         return null;
     }
 
-    const confirmpresssed = () => {
-        navigation.navigate('LogIn');
-    }
-
-    const resendcodepressed = () => {
-        console.warn('Resend Code');
+    const confirmpresssed = async (res) => {
+        try {
+            const otp = res.otp.toString();
+            const password = res.newpassword;
+            const {data} = await axios.post("http://192.168.135.79:8000/api/user/reset-password", {userid, otp, password})
+            console.log(data);
+            navigation.navigate("LogIn");
+        } catch (error) {
+            updateNotification(setmessage, error.response.data.error)
+            console.log(error?.response?.data)
+        }
     }
 
     const backtologinpressed = () => {
@@ -36,13 +52,14 @@ const ResetPasswordConfirmationScreen = () => {
     }
 
     return(
-        <View style={styles.container}>
-            <Text style={styles.title}>Reset Password</Text>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb"}]}>
+            {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
+            <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>Reset Password</Text>
 
             <Text style={styles.infocontainer}>Confirmation code has been sent to your registered email id.</Text>
 
             <View style={styles.inputcontainer}>
-                <InputBox control={control} name={'confirmationcode'} placeholder={'Confirmation Code'} />
+                <InputBox control={control} name={'otp'} placeholder={'Confirmation Code'} />
                 <InputBox control={control} name={'newpassword'} placeholder={'New Password'} visible />
                 <InputBox control={control} name={'confirmpassword'} placeholder={'Confirm Password'} visible />
             </View>
@@ -52,7 +69,6 @@ const ResetPasswordConfirmationScreen = () => {
             </View>
 
             <View style={styles.bottomwrapper}>
-                <Text style={styles.bottom} onPress={handleSubmit(resendcodepressed)}>Resend code?</Text>
                 <Text style={styles.bottom} onPress={backtologinpressed}>Back to login</Text>
             </View>
         </View>
@@ -61,7 +77,6 @@ const ResetPasswordConfirmationScreen = () => {
 
 const styles = StyleSheet.create({
     container:{
-        marginTop: 25,
         height: '100%',
         width: '100%',
         backgroundColor: '#eafdfc',
@@ -71,6 +86,7 @@ const styles = StyleSheet.create({
         fontFamily: 'FredokaOne-Regular',
         fontSize: 28,
         color: '#82AAE3',
+        marginTop: 75,
     },
     infocontainer:{
         marginTop: 20,
@@ -91,7 +107,7 @@ const styles = StyleSheet.create({
         marginTop: 45,
         flexDirection: 'row',
         width: '80%',
-        justifyContent: 'space-between',
+        justifyContent: "flex-end",
     },
     bottom:{
         fontFamily: 'Inder-Regular',

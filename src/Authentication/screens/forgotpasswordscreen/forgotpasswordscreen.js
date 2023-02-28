@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { useFonts } from 'expo-font';
 import InputBox from "../../../components/inputbox";
@@ -10,8 +10,11 @@ import forgotPasswordValidationSchema from "../../../utils/forgotpasswordvalidat
 import axios from "axios";
 import { updateNotification } from "../../../utils/updatenotification";
 import AppNotification from "../../../components/AppNotification/appnotification";
+import { MyContext } from "../../../../Global/context";
 
 const ForgotPasswordScreen = () => {
+    const {setuserid, darkscheme} = useContext(MyContext);
+
     const [message, setmessage] = useState({
         type: '',
         text: '',
@@ -33,9 +36,11 @@ const ForgotPasswordScreen = () => {
 
     const submitpressed = async (email) => {
         try {
-            const {data} = await axios.post("http://192.168.216.79:8000/api/user/forgot-password", email)
+            const {data} = await axios.post("http://192.168.135.79:8000/api/user/forgot-password", email)
             updateNotification(setmessage, data.message, data.success)
             console.log(data)
+            setuserid(data.param.id);
+            navigation.navigate("ResetPasswordConfirmationScreen")
         } catch (error) {
             updateNotification(setmessage, error.response.data.error)
             console.log(error?.response?.data)
@@ -47,9 +52,9 @@ const ForgotPasswordScreen = () => {
     }
 
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb"}]}>
             {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
-            <Text style={styles.title}>Reset Password</Text>
+            <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>Reset Password</Text>
 
             <View style={styles.inputcontainer}>
                 <InputBox control={control} name={'email'} placeholder={'E-Mail'} />
@@ -75,7 +80,6 @@ const styles = StyleSheet.create({
         marginTop: 60,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 28,
-        color: '#82AAE3',
     },
     inputcontainer:{
         marginTop: 10,

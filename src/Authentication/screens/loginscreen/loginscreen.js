@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, StatusBar, } from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar, Dimensions, } from "react-native";
 import InputBox from "../../../components/inputbox";
 import { useFonts } from 'expo-font'
 import Buttons from "../../../components/buttons";
@@ -13,8 +13,10 @@ import { updateNotification } from "../../../utils/updatenotification";
 import AppNotification from "../../../components/AppNotification/appnotification";
 import { MyContext } from "../../../../Global/context";
 
+const windowHeight = Dimensions.get("window").height;
 const LoginScreen = () => {
-    const {setuserid, setusername, setemail} = useContext(MyContext);
+    const {setuserid, setusername, setemail, darkscheme} = useContext(MyContext);
+
 
     const navigation = useNavigation();
     const [message, setmessage] = useState({
@@ -61,26 +63,26 @@ const LoginScreen = () => {
 
     return(
         <ScrollView>
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fafafa"}]}>
                 {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
-                <Text style={styles.login}>LogIn</Text>
+                <Text style={[styles.login, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>LogIn</Text>
 
                 <InputBox control={control} name={'email'} placeholder={'E-mail'} rules={{required: "E-mail required!"}} />
                 <InputBox control={control} name={'password'} placeholder={'Password'} hide rules={{required: "Password required!"}} />
                 <View style={styles.forgotpasswordwrapper}>
-                    <Text style={styles.forgotpassword} onPress={forgotpasswordpressed}>Forgot Password?</Text>
+                    <Text style={[styles.forgotpassword, {color: darkscheme ? "#ffffff88" : "#979797"}]} onPress={forgotpasswordpressed}>Forgot Password?</Text>
                 </View>
 
-                <View style={styles.socialmediawrapper}>
+                {/* <View style={styles.socialmediawrapper}>
                     <SocialMedia value={'Login'} />
-                </View>
+                </View> */}
 
                 <View style={styles.button}>
                     <Buttons value={'Login'} onPress={handleSubmit(loginpressed)} />
                 </View>
 
                 <View style={styles.createaccountwrapper}>
-                    <Text style={styles.createaccountquestion}>Don't have an account? <Text style={styles.createaccountanswer} onPress={createaccountpressed}>Create Account</Text></Text>
+                    <Text style={[styles.createaccountquestion, {color: darkscheme ? "#ffffff88" : "#979797"}]}>Don't have an account? <Text style={styles.createaccountanswer} onPress={createaccountpressed}>Create Account</Text></Text>
                 </View>
             </View>
         </ScrollView>
@@ -89,17 +91,14 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
     container:{
-        height: '100%',
-        width: '100%',
+        height: windowHeight,
         alignItems: 'center',
-        backgroundColor: '#eafdfc',
     },
     login:{
         marginTop: 50,
         marginBottom: 20,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 56,
-        color: '#82AAE3',
     },
     forgotpasswordwrapper:{
         width: '80%',
@@ -109,7 +108,6 @@ const styles = StyleSheet.create({
     forgotpassword:{
         fontFamily: 'Inder-Regular',
         fontSize: 14,
-        color: '#979797',
     },
     socialmediawrapper:{
         marginTop: 35,
@@ -125,7 +123,6 @@ const styles = StyleSheet.create({
     createaccountquestion:{
         fontFamily: 'Inder-Regular',
         fontSize: 14,
-        color: '#979797',
     },
     createaccountanswer:{
         color: '#82AAE3',

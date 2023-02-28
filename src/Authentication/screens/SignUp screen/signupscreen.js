@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, ScrollView, } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, View, Text, ScrollView, Dimensions, } from "react-native";
 import { useFonts } from 'expo-font';
 import InputBox from "../../../components/inputbox/inputbox";
 import SocialMedia from "../../social media linking/socialmedia";
@@ -11,8 +11,13 @@ import signupValidationSchema from "../../../utils/signupvalidations";
 import axios from "axios";
 import AppNotification from "../../../components/AppNotification/appnotification";
 import { updateNotification } from "../../../utils/updatenotification";
+import { MyContext } from "../../../../Global/context";
+
+const windowHeight = Dimensions.get("window").height;
 
 const SignUpScreen = () => {
+    const {darkscheme} = useContext(MyContext);
+
     const navigation = useNavigation();
     const [message, setmessage] = useState({
         type: '',
@@ -57,26 +62,16 @@ const SignUpScreen = () => {
 
     return(
         <ScrollView>
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
                 {message.text ? <AppNotification type={message.type} text={message.text} /> : null}
-                <Text style={styles.signup}>SignUp</Text>
+                <Text style={[styles.signup, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>SignUp</Text>
 
                 <InputBox control={control} name={'name'} placeholder={'Full Name'} />
                 <InputBox control={control} name={'email'} placeholder={'E-Mail'} />
                 <InputBox control={control} name={'password'} placeholder={'Password'} hide />
                 <InputBox control={control} name={'confirmpassword'} placeholder={'Confirm Password'} hide />
 
-                <View style={styles.orcontainer}>
-                    <View style={styles.line}/>
-                    <Text style={styles.or}>OR</Text>
-                    <View style={styles.line}/>
-                </View>
-
-                <View style={styles.socialmediawrapper}>
-                    <SocialMedia value={'SignUp'}/>
-                </View>
-
-                <Text style={styles.agreement}>By registering, you agree to our <Text style={styles.terms} onPress={termspressed}>Terms of Use</Text> and <Text style={styles.privacy} onPress={privacypressed}>Privacy Policy</Text></Text>
+                <Text style={[styles.agreement, {color: darkscheme ? "#ffffff88" : "#979797"}]}>By registering, you agree to our <Text style={styles.terms} onPress={termspressed}>Terms of Use</Text> and <Text style={styles.privacy} onPress={privacypressed}>Privacy Policy</Text></Text>
 
                 <View style={styles.button}>
                     <Buttons value={'SignUp'} onPress={handleSubmit(signuppressed)}/>
@@ -90,18 +85,14 @@ const SignUpScreen = () => {
 
 const styles = StyleSheet.create({
     container:{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
+        height: windowHeight,
         alignItems: 'center',
-        backgroundColor: '#eafdfc',
     },
     signup:{
         marginTop: 50,
         marginBottom: 20,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 56,
-        color: '#82AAE3',
     },
     orcontainer:{
         marginTop: 25,

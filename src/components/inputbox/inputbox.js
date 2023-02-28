@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TextInput, StyleSheet, Text, View, } from "react-native";
 import { Controller } from "react-hook-form";
+import { MyContext } from "../../../Global/context";
 
 const InputBox = ({control, name, placeholder, hide}) => {
+    const {darkscheme} = useContext(MyContext);
+
     return(
         <>
             <Controller     
@@ -14,11 +17,12 @@ const InputBox = ({control, name, placeholder, hide}) => {
                             <Text style={styles.errorMessage}>{error?.message}</Text> 
                         )}
                         <TextInput 
-                        style={[styles.inputbox, {borderColor: error ? '#FF8888' : 'black',borderWidth: error ? 1 : 0}]}
+                        style={[styles.inputbox, {borderColor: error ? '#FF8888' : 'black',borderWidth: error ? 1 : 0, backgroundColor: darkscheme ? "#1f222a" : "#ffffff", color: darkscheme ? "#cdcdcd" : "00000066"}]}
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}
                         placeholder={placeholder} 
+                        placeholderTextColor={darkscheme ? "#9e9e9e" : "#00000066"}
                         secureTextEntry={hide}
                         />
                     </View>
@@ -44,7 +48,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         height: 45,
         width: '100%',
-        backgroundColor: '#fff',
         borderRadius: 50,
     },
 })

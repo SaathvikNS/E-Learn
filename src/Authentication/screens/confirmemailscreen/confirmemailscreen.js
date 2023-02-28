@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from 'expo-font';
 import InputBox from "../../../components/inputbox";
@@ -10,8 +10,11 @@ import confirmEmailValidationSchema from "../../../utils/confirmeamilvalidations
 import { updateNotification } from "../../../utils/updatenotification";
 import axios from "axios";
 import AppNotification from "../../../components/AppNotification/appnotification";
+import { MyContext } from "../../../../Global/context";
 
 const ConfirmEmailScreen = ({route}) => {
+    const {darkscheme} = useContext(MyContext);
+
     const userid = route.params.profile.id;
     const [message, setmessage] = useState({
         test: '',
@@ -46,18 +49,14 @@ const ConfirmEmailScreen = ({route}) => {
         }
     };
 
-    const resendcodepressed = () => {
-        console.warn('Resend Code')
-    };
-
     const backtologinpressed = () => {
         navigation.navigate('LogIn');
     };
 
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb"}]}>
             {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
-            <Text style={styles.titletext}>Confirm Email</Text>
+            <Text style={[styles.titletext, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>Confirm Email</Text>
 
             <Text style={styles.infocontainer}>Confirmation code has been sent to your registered mail id.</Text>
 
@@ -68,7 +67,6 @@ const ConfirmEmailScreen = ({route}) => {
             </View>
 
             <View style={styles.bottomwrapper}>
-                <Text style={styles.resendcode} onPress={resendcodepressed}>Resend code?</Text>
                 <Text style={styles.backtologin} onPress={backtologinpressed}>Back to login</Text>
             </View>
         </View>
@@ -86,7 +84,6 @@ const styles = StyleSheet.create({
         marginTop: 60,
         fontFamily: 'FredokaOne-Regular',
         fontSize: 28,
-        color: '#82AAE3', 
     },
     infocontainer:{
         fontFamily: 'Inder-Regular',
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
         marginTop: 45,
         flexDirection: 'row',
         width: '80%',
-        justifyContent: 'space-between',
+        justifyContent: "flex-end",
     },
     resendcode:{
         fontFamily: 'Inder-Regular',

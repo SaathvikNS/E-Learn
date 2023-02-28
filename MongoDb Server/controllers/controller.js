@@ -1,10 +1,10 @@
 const User = require('../model/userSchema');
 const verificationtoken = require('../model/verificationtoken');
 const ResetToken = require('../model/resetToken');
-const jwt = require('jsonwebtoken');
-const { generateOtp, mailTransport, createRandomBytes } = require('../utils/utils');
+const { generateOtp, mailTransport } = require('../utils/utils');
 const { otpMailTemplate, welcomeMail, forgotPasswordMail, resetSuccessMail, } = require('../utils/emailtemplates');
 const { isValidObjectId, } = require('mongoose');
+const resetToken = require('../model/resetToken');
 require('dotenv').config();
 
 exports.createUser = async (req, res) =>  {
@@ -47,11 +47,7 @@ exports.login = async (req, res) => {
     const isMatched = await user.comparePassword(password);
     if(!isMatched) return res.status(401).send({success: false, error: 'Email/Password does not match'});
 
-    const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET_KEY, {
-        expiresIn: '1d'
-    })
-
-    res.status(200).send({success: true, user: {name: user.name, email: user.email, id: user._id, token}})
+    res.status(200).send({success: true, user: {name: user.name, email: user.email, id: user._id}})
 }
 
 exports.verifyemail = async (req, res) => {
@@ -96,25 +92,33 @@ exports.forgotPassword = async (req, res) => {
     const token = await ResetToken.findOne({owner: user._id});
     if(token) return res.status(400).send({success: false, error: "You can request for another mail after 1 hr!"})
 
-    const randomBytes = await createRandomBytes()
-    const resetToken = new ResetToken({owner: user._id, token: randomBytes})
+    const otp = generateOtp();
+
+    const resetToken = new ResetToken({owner: user._id, token: otp})
     await resetToken.save();
 
     mailTransport().sendMail({
         from: "no-reply@gmail.com",
         to: user.email,
         subject: "Reset Password",
-        html: forgotPasswordMail(`http://localhost:3000/reset-password?token=${randomBytes}&id=${user._id}`)
+        html: forgotPasswordMail(otp)
     })
 
-    res.status(200).send({success: true, message: "Reset password link sent to your mail."})
+    res.status(200).send({success: true, message: "OTP sent to your mail.", param: {id: user._id}})
 }
 
 exports.resetPassword = async (req, res) => {
-    const {password} = req.body;
+    const {userid, otp, password} = req.body;
 
-    const user = await User.findById(req.user._id)
-    if(!user) return res.status(400).send({success: false, error: "User not found"})
+    if(!isValidObjectId(userid)) return res.status(400).send({success: false, error: 'Invalid User Id!'})
+
+    const user = await User.findById(userid)
+
+    const token = await resetToken.findOne({owner: user._id})
+    if(!token) return res.status(400).send({success: false, error: "OTP not generated or is expired"})
+
+    const isMatched = await token.compareToken(otp)
+    if(!isMatched) return res.status(400).send({success: false, error: "Enter the valid OTP"})
 
     const passMatched = await user.comparePassword(password)
     if(passMatched) return res.status(400).send({success: false, error: "New password must be different from the old password"});
