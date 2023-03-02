@@ -13,13 +13,13 @@ const PrivacyPolicyPage =() => {
     }
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
-            <View style={styles.titlecontainer}>
+            <View style={[styles.titlecontainer, {borderBottomColor: darkscheme ? "#4360c988" : "#82aae388"}]}>
                 <TouchableOpacity onPress={backpressed}>
-                    <Ionicon name="arrow-back" size={25} color={"#82aae3"}/>
+                    <Ionicon name="arrow-back" size={25} color={darkscheme ? "#4360c9" : "#82aae3"}/>
                 </TouchableOpacity>
-                <Text style={[styles.title, {textAlign: "center", width: "95%",}]}>Privacy Policy</Text>
+                <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3", textAlign: "center", width: "95%",}]}>Privacy Policy</Text>
             </View>
-            <Text style={{color: "#82aae399", marginTop: 5, paddingLeft: 10}}>Last Updated January 29, 2023</Text>
+            <Text style={{color: darkscheme ? "#4360c988" : "#82aae388", marginTop: 5, paddingLeft: 10}}>Last Updated January 29, 2023</Text>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.contentwrapper}>
                     <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -32,7 +32,7 @@ const PrivacyPolicyPage =() => {
 Questions or concerns? Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at tester@email.com.
 `}
 </Text>
-<Text style={[styles.content, {fontSize: 20, color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {fontSize: 20, color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 SUMMARY OF KEY POINTS
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -56,7 +56,7 @@ How do you exercise your rights? The easiest way to exercise your rights is by f
 
 Want to learn more about what E--Learn does with any information we collect? Click here to review the notice in full.`}
 </Text>
-<Text style={[styles.content, {fontSize: 20, color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {fontSize: 20, color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 TABLE OF CONTENTS
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -89,7 +89,7 @@ TABLE OF CONTENTS
 14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 `}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular",}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular",}]}>
 1. WHAT INFORMATION DO WE COLLECT?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -118,7 +118,7 @@ This information is primarily needed to maintain the security and operation of o
 
 All personal information that you provide to us must be true, complete, and accurate, and you must notify us of any changes to such personal information.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 2. HOW DO WE PROCESS YOUR INFORMATION?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -134,7 +134,7 @@ We process your personal information for a variety of reasons, depending on how 
 
 • To send you marketing and promotional communications. We may process the personal information you send to us for our marketing purposes, if this is in accordance with your marketing preferences. You can opt out of our marketing emails at any time. For more information, see "WHAT ARE YOUR PRIVACY RIGHTS?" below).`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 3. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -144,7 +144,7 @@ We may need to share your personal information in the following situations:
 
 • Business Transfers. We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 4. WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -152,7 +152,7 @@ We may need to share your personal information in the following situations:
 
 The Services may link to third-party websites, online services, or mobile applications and/or contain advertisements from third parties that are not affiliated with us and which may link to other websites, services, or applications. Accordingly, we do not make any guarantee regarding any such third parties, and we will not be liable for any loss or damage caused by the use of such third-party websites, services, or applications. The inclusion of a link towards a third-party website, service, or application does not imply an endorsement by us. We cannot guarantee the safety and privacy of data you provide to any third parties. Any data collected by third parties is not covered by this privacy notice. We are not responsible for the content or privacy and security practices and policies of any third parties, including other websites, services, or applications that may be linked to or from the Services. You should review the policies of such third parties and contact them directly to respond to your questions.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 5. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -160,7 +160,7 @@ The Services may link to third-party websites, online services, or mobile applic
 
 We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 6. HOW DO WE HANDLE YOUR SOCIAL LOGINS?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -170,7 +170,7 @@ Our Services offer you the ability to register and log in using your third-party
 
 We will use the information we receive only for the purposes that are described in this privacy notice or that are otherwise made clear to you on the relevant Services. Please note that we do not control, and are not responsible for, other uses of your personal information by your third-party social media provider. We recommend that you review their privacy notice to understand how they collect, use, and share your personal information, and how you can set your privacy preferences on their sites and apps.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 7. HOW LONG DO WE KEEP YOUR INFORMATION?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -180,7 +180,7 @@ We will only keep your personal information for as long as it is necessary for t
 
 When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymize such information, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 8. HOW DO WE KEEP YOUR INFORMATION SAFE?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -188,7 +188,7 @@ When we have no ongoing legitimate business need to process your personal inform
 
 We have implemented appropriate and reasonable technical and organizational security measures designed to protect the security of any personal information we process. However, despite our safeguards and efforts to secure your information, no electronic transmission over the Internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Although we will do our best to protect your personal information, transmission of personal information to and from our Services is at your own risk. You should only access the Services within a secure environment.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 9. WHAT ARE YOUR PRIVACY RIGHTS?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -216,13 +216,13 @@ Cookies and similar technologies: Most Web browsers are set to accept cookies by
 
 If you have questions or comments about your privacy rights, you may email us at tester@email.com.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 10. CONTROLS FOR DO-NOT-TRACK FEATURES
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
 {`Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track ("DNT") feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this privacy notice.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -232,7 +232,7 @@ California Civil Code Section 1798.83, also known as the "Shine The Light" law, 
 
 If you are under 18 years of age, reside in California, and have a registered account with Services, you have the right to request removal of unwanted data that you publicly post on the Services. To request removal of such data, please contact us using the contact information provided below and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the Services, but please be aware that the data may not be completely or comprehensively removed from all our systems (e.g., backups, etc.).`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 12. DO WE MAKE UPDATES TO THIS NOTICE?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -240,7 +240,7 @@ If you are under 18 years of age, reside in California, and have a registered ac
 
 We may update this privacy notice from time to time. The updated version will be indicated by an updated "Revised" date and the updated version will be effective as soon as it is accessible. If we make material changes to this privacy notice, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this privacy notice frequently to be informed of how we are protecting your information.`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>
@@ -252,7 +252,7 @@ tester main
 tester city, tester state 569854
 India`}
 </Text>
-<Text style={[styles.content, {color: "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
+<Text style={[styles.content, {color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "FredokaOne-Regular"}]}>
 14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 </Text>
 <Text style={[styles.content, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>

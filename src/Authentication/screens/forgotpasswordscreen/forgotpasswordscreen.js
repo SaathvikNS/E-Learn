@@ -53,7 +53,6 @@ const ForgotPasswordScreen = () => {
 
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb"}]}>
-            {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
             <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>Reset Password</Text>
 
             <View style={styles.inputcontainer}>

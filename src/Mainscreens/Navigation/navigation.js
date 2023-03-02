@@ -31,22 +31,22 @@ const BottomNavigation = ( ) => {
         {/* Home */}
         <TouchableOpacity onPress={() => { setSelectedTab(0); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 0 ? "home" : "home-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
-            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Home</Text>
+            <Ionicons name={selectedTab == 0 ? "home" : "home-outline"} size={windowWidth < 400 ? 25 : 30} color={darkscheme ? "#4360c9" : "#82aae3"} />
+            <Text style={{ color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "Inder-Regular", fontSize: windowWidth < 400 ? 10 : 13}}>Home</Text>
           </View>
         </TouchableOpacity>
         {/* Wishlist */}
         <TouchableOpacity onPress={() => { setSelectedTab(1); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 1 ? "heart" : "heart-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
-            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Wishlist</Text>
+            <Ionicons name={selectedTab == 1 ? "heart" : "heart-outline"} size={windowWidth < 400 ? 25 : 30} color={darkscheme ? "#4360c9" : "#82aae3"} />
+            <Text style={{ color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "Inder-Regular", fontSize: windowWidth < 400 ? 10 : 13}}>Wishlist</Text>
           </View>
         </TouchableOpacity>
         {/* Profile */}
         <TouchableOpacity onPress={() => { setSelectedTab(2); }}>
           <View style={styles.touchablewrapper}>
-            <Ionicons name={selectedTab == 2 ? "person-circle" : "person-circle-outline"} size={windowWidth < 400 ? 25 : 30} color={"#82aae3"} />
-            <Text style={[styles.text, {fontSize: windowWidth < 400 ? 10 : 13}]}>Profile</Text>
+            <Ionicons name={selectedTab == 2 ? "person-circle" : "person-circle-outline"} size={windowWidth < 400 ? 25 : 30} color={darkscheme ? "#4360c9" : "#82aae3"} />
+            <Text style={{ color: darkscheme ? "#4360c9" : "#82aae3", fontFamily: "Inder-Regular", fontSize: windowWidth < 400 ? 10 : 13}}>Profile</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -69,10 +69,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
-  },
-  text: {
-    color: "#82aae3",
-    fontFamily: "Inder-Regular",
   },
 });
 

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const resetPasswordConfirmationValidationSchema = yup.object().shape({
-    confirmationcode: yup.number().typeError("Invalid confirmation code").required(),
+    otp: yup.number().typeError("Invalid confirmation code").required(),
     newpassword: yup.string().min(8, "Password must atleast have 8 characters").max(20,"Password can have atmost 20 characters").required("Please enter the password"),
     confirmpassword: yup.string().oneOf([yup.ref("newpassword"), null],"Passwords do not match!").required("Confirm password") 
 })

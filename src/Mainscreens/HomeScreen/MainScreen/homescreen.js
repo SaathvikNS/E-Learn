@@ -46,7 +46,7 @@ const HomeScreen = () => {
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
             <View style={styles.header}>
-                <Ionicon name="person-circle" size={50} color={"#82aae3"}/>
+                <Ionicon name="person-circle" size={50} color={darkscheme ? "#4360c9" : "#82aae3"}/>
                 <View style={styles.headertext}>
                     <Text style={[styles.greet, {color: darkscheme ? "#ffffff99" : "#00000088"}]}>Hello!! 👋</Text>
                     <Text style={[styles.username, {color: darkscheme ? "#ffffffcc" : "#000000bb"}]}>{username}</Text>

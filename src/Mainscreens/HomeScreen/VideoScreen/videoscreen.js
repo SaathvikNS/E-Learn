@@ -32,11 +32,11 @@ const VideoScreen =() => {
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
             {/* title */}
-            <View style={styles.titlecontainer}>
+            <View style={[styles.titlecontainer, {borderBottomColor: darkscheme ? "#4360c988" : "#82aae388"}]}>
                 <TouchableOpacity onPress={backpressed}>
-                    <Ionicon name="arrow-back" size={windowWidth < 400 ? 25 : 30} color={"#82aae3"}/>
+                    <Ionicon name="arrow-back" size={windowWidth < 400 ? 25 : 30} color={darkscheme ? "#4360c9" : "#82aae3"}/>
                 </TouchableOpacity>
-                <Text style={[styles.title, {fontSize: windowWidth < 400 ? 20 : 25 , textAlign: "center", width: "95%",}]}>{title}</Text>
+                <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3", fontSize: windowWidth < 400 ? 20 : 25 , textAlign: "center", width: "95%",}]}>{title}</Text>
             </View>
             {/* video */}
             {
@@ -104,13 +104,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
         width: "100%",
         borderBottomWidth: 1,
-        borderBottomColor: "#82aae388",
         flexDirection: "row",
         alignItems: "center",
     },
     title:{
         fontFamily: 'FredokaOne-Regular',
-        color: '#82AAE3',
     },
     tutorContainer:{
         width: "100%",

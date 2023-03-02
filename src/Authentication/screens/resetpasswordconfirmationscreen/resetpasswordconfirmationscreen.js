@@ -34,10 +34,11 @@ const ResetPasswordConfirmationScreen = () => {
         return null;
     }
 
-    const confirmpresssed = async (res) => {
+    const confirmpressed = async (res) => {
         try {
             const otp = res.otp.toString();
             const password = res.newpassword;
+            console.log(otp)
             const {data} = await axios.post("http://192.168.135.79:8000/api/user/reset-password", {userid, otp, password})
             console.log(data);
             navigation.navigate("LogIn");
@@ -59,13 +60,13 @@ const ResetPasswordConfirmationScreen = () => {
             <Text style={styles.infocontainer}>Confirmation code has been sent to your registered email id.</Text>
 
             <View style={styles.inputcontainer}>
-                <InputBox control={control} name={'otp'} placeholder={'Confirmation Code'} />
+                <InputBox control={control} name={'otp'} placeholder={'OTP'} />
                 <InputBox control={control} name={'newpassword'} placeholder={'New Password'} visible />
                 <InputBox control={control} name={'confirmpassword'} placeholder={'Confirm Password'} visible />
             </View>
 
             <View style={styles.buttoncontainer}>
-                <Buttons value={'Confirm'} onPress={handleSubmit(confirmpresssed)}/>
+                <Buttons value={'Confirm'} onPress={handleSubmit(confirmpressed)}/>
             </View>
 
             <View style={styles.bottomwrapper}>

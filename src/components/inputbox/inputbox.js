@@ -17,7 +17,7 @@ const InputBox = ({control, name, placeholder, hide}) => {
                             <Text style={styles.errorMessage}>{error?.message}</Text> 
                         )}
                         <TextInput 
-                        style={[styles.inputbox, {borderColor: error ? '#FF8888' : 'black',borderWidth: error ? 1 : 0, backgroundColor: darkscheme ? "#1f222a" : "#ffffff", color: darkscheme ? "#cdcdcd" : "00000066"}]}
+                        style={[styles.inputbox, {borderColor: error ? '#FF8888' : 'black',borderWidth: error ? 1 : 0, backgroundColor: darkscheme ? "#1f222a" : "#ffffff", color: darkscheme ? "#cdcdcd" : "#00000099"}]}
                         value={value}
                         onChangeText={onChange}
                         onBlur={onBlur}

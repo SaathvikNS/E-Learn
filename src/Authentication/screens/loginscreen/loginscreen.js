@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, StatusBar, Dimensions, } from "react-native";
+import { View, Text, StyleSheet, ScrollView, StatusBar, Dimensions, TouchableOpacity, } from "react-native";
 import InputBox from "../../../components/inputbox";
 import { useFonts } from 'expo-font'
 import Buttons from "../../../components/buttons";
-import SocialMedia from "../../social media linking/socialmedia";
+import Ionicon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,8 +15,7 @@ import { MyContext } from "../../../../Global/context";
 
 const windowHeight = Dimensions.get("window").height;
 const LoginScreen = () => {
-    const {setuserid, setusername, setemail, darkscheme} = useContext(MyContext);
-
+    const {setuserid, setusername, setemail, darkscheme, setdarkscheme} = useContext(MyContext);
 
     const navigation = useNavigation();
     const [message, setmessage] = useState({
@@ -62,7 +61,7 @@ const LoginScreen = () => {
     };
 
     return(
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fafafa"}]}>
                 {message.text ? <AppNotification text={message.text} type={message.type} /> : null}
                 <Text style={[styles.login, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>LogIn</Text>
@@ -84,6 +83,17 @@ const LoginScreen = () => {
                 <View style={styles.createaccountwrapper}>
                     <Text style={[styles.createaccountquestion, {color: darkscheme ? "#ffffff88" : "#979797"}]}>Don't have an account? <Text style={styles.createaccountanswer} onPress={createaccountpressed}>Create Account</Text></Text>
                 </View>
+                <TouchableOpacity onPress={() => {setdarkscheme(!darkscheme)}} style={{position: "absolute", bottom: 30, right: 30, width: 50, height: 50}}>
+                    {darkscheme ? (
+                        <View style={{backgroundColor: "#4360c9", height: "100%", width: "100%", borderRadius: 100, alignItems: "center", justifyContent: "center",}}>
+                            <Ionicon name="sunny" size={25} color={"#181a20"} />
+                        </View>
+                    ) : (
+                        <View style={{backgroundColor: "#82aae3", height: "100%", width: "100%", borderRadius: 100, alignItems: "center", justifyContent: "center",}}>
+                            <Ionicon name="moon" size={25} color={"#fafafa"} />
+                        </View>
+                    )}
+                </TouchableOpacity>
             </View>
         </ScrollView>
     )

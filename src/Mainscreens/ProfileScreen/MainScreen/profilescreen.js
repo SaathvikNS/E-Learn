@@ -38,15 +38,15 @@ const ProfileScreen = () => {
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
             <View style={styles.titlecontainer}>
-                <Text style={styles.title}>Profile</Text>
+                <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>Profile</Text>
             </View>
             <View style={styles.userinfowrapper}>
-                <View style={styles.image}>
-                    <Ionicon name="person" size={75} color={"#eafdfc"}/>
+                <View style={[styles.image, {backgroundColor: darkscheme ? "#4360c9" : "#82aae3"}]}>
+                    <Ionicon name="person" size={75} color={darkscheme ? "#181a20" : "#fbfbfb"}/>
                 </View>
                 <View style={styles.userinfo}>
                     <Text style={[styles.username, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>{username}</Text>
-                    <Text style={styles.email}>{email}</Text>
+                    <Text style={[styles.email, {color: darkscheme ? "#4360c9" : "#82aae3"}]}>{email}</Text>
                 </View>
             </View>
             <View style={styles.pressables}>
@@ -55,9 +55,9 @@ const ProfileScreen = () => {
                 <PlainButtons text={"Terms and Conditions"} icon={"shield-checkmark"} onPress={termsandconditionspressed}/>
                 {
                     darkscheme ? (
-                        <PlainButtons text={"Light Mode"} icon={"contrast"} onPress={() => { setdarkscheme(false); }} />
+                        <PlainButtons text={"Light Mode"} icon={"sunny"} onPress={() => { setdarkscheme(false); }} />
                     ) : (
-                        <PlainButtons text={"Dark Mode"} icon={"contrast"} onPress={() => { setdarkscheme(true); }} />
+                        <PlainButtons text={"Dark Mode"} icon={"moon"} onPress={() => { setdarkscheme(true); }} />
                     )
                 }
                 <PlainButtons text={"Sign out"} icon={"log-out"} onPress={logoutpressed}/>
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     },
     title:{
         fontFamily: 'FredokaOne-Regular',
-        color: '#82AAE3',
         fontSize: 30,
     },
     userinfo:{
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     image:{
-        backgroundColor: "#82aae3",
         width: 100,
         height: 100,
         borderRadius: 100,

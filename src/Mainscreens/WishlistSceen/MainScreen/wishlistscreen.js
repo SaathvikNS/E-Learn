@@ -17,8 +17,8 @@ const WishlistScreen =() => {
 
     return(
         <View style={[styles.container, {backgroundColor: darkscheme ? "#181a20" : "#fbfbfb",}]}>
-            <View style={styles.titlecontainer}>
-                <Text style={[styles.title, {textAlign: "center", width: "100%",}]}>Wishlist</Text>
+            <View style={[styles.titlecontainer, {borderBottomColor: darkscheme ? "#4360c988" : "#82aae388"}]}>
+                <Text style={[styles.title, {color: darkscheme ? "#4360c9" : "#82aae3", textAlign: "center", width: "100%",}]}>Wishlist</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.contentwrapper}>
@@ -66,13 +66,11 @@ const styles = StyleSheet.create({
         marginTop: 30,
         width: "100%",
         borderBottomWidth: 1,
-        borderBottomColor: "#82aae388",
         flexDirection: "row",
         alignItems: "center",
     },
     title:{
         fontFamily: 'FredokaOne-Regular',
-        color: '#82AAE3',
         fontSize: 30,
     },
     contentwrapper:{

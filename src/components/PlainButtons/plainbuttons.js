@@ -9,7 +9,7 @@ const PlainButtons = ({text, icon, onPress = null}) => {
     return(
         <TouchableNativeFeedback onPress={onPress}>
             <View style={styles.wrapper}>
-                <Ionicon name={icon} size={25} color={"#82aae3"}/>
+                <Ionicon name={icon} size={25} color={darkscheme ? "#4360c9" : "#82aae3"}/>
                 <Text style={[styles.text, {color: darkscheme ? "#ffffffcc" : "#5e5e5e",}]}>{text}</Text>
             </View>
         </TouchableNativeFeedback>
